@@ -1,10 +1,12 @@
 class BandsController < ApplicationController
+    before_action :authorized, only: [:auto_login]
+
 
     def show
     end
 
     def create
-        band = Band.create(band_params(:name, :email, :password))
+        band = Band.create(band_params(:name, :username, :email, :password))
         if band.valid?
             token = encode_token({band_id: band.id})
             render json: {band: band, token: token}
@@ -18,7 +20,7 @@ class BandsController < ApplicationController
     end
 
     def login
-        band = Band.find_by(name: params[:name])
+        band = Band.find_by(username: params[:name])
         if band && band.authenticate(params[:password])
             token = encode_token({band_id: band.id})
             render json: {band: band, token: token}
@@ -26,6 +28,10 @@ class BandsController < ApplicationController
             render json: {error: "Invalid username or password"}
         end
     end
+
+    def auto_login
+        render json: band
+      end
 
     private
 

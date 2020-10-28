@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_145225) do
+ActiveRecord::Schema.define(version: 2020_10_28_132950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 2020_10_27_145225) do
   create_table "bands", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "hometown"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
   end
 
   create_table "playlist_additions", force: :cascade do |t|
@@ -54,13 +54,12 @@ ActiveRecord::Schema.define(version: 2020_10_27_145225) do
   create_table "shows", force: :cascade do |t|
     t.date "date"
     t.bigint "band_id", null: false
-    t.bigint "venue_id", null: false
+    t.string "venue_name"
     t.integer "playlist_id"
     t.integer "price_per_request"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["band_id"], name: "index_shows_on_band_id"
-    t.index ["venue_id"], name: "index_shows_on_venue_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -72,20 +71,10 @@ ActiveRecord::Schema.define(version: 2020_10_27_145225) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "venues", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "address"
-    t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   add_foreign_key "playlist_additions", "playlists"
   add_foreign_key "playlist_additions", "songs"
   add_foreign_key "playlists", "bands"
   add_foreign_key "requests", "shows"
   add_foreign_key "requests", "songs"
   add_foreign_key "shows", "bands"
-  add_foreign_key "shows", "venues"
 end

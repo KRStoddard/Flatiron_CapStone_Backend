@@ -6,6 +6,5 @@ Rails.application.routes.draw do
   resources :requests, only: [:create]
   resources :shows, only: [:show, :create]
   resources :songs, only: [:create]
-  resources :venues, only: [:show, :create, :delete]
   post 'bands/login', to: 'bands#login'
 end

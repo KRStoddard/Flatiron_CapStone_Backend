@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
 
     def index
         playlists = Playlist.all 
-        render json: playlists
+        render json: {playlists: playlists, band: logged_in_user}
     end
 
     def show
