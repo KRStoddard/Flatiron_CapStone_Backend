@@ -30,8 +30,8 @@ class BandsController < ApplicationController
     end
 
     def auto_login
-        render json: band
-      end
+        render json: logged_in_user
+    end
 
     private
 
