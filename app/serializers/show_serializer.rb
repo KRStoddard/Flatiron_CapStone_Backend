@@ -1,8 +1,8 @@
 class ShowSerializer < ActiveModel::Serializer
-  attributes :id, :venue_name, :date, :playlist_additions
+  attributes :id, :venue_name, :price_per_request, :date, :playlist_additions
 
   belongs_to :band
-
+  has_many :requests
   belongs_to :playlist
 
   def playlist_additions

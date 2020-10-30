@@ -1,3 +1,4 @@
 class RequestSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :song, :playlist_id, :show_id
+
 end

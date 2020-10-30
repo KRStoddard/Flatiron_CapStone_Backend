@@ -1,5 +1,5 @@
 class ShowsController < ApplicationController
-    skip_before_action :authorized, only: [:index]
+    skip_before_action :authorized, only: [:index, :show]
 
     def index 
         shows = Show.all.filter{|show| show.complete != true}
@@ -8,7 +8,7 @@ class ShowsController < ApplicationController
     
     def show
         show = Show.find(params[:id])
-        render json: show, :include => {:playlist => {:include => {:playlist_additions => {:include => :song}}}}
+        render json: show
     end
 
     def create
