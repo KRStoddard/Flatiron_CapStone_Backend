@@ -3,7 +3,11 @@ class RequestsController < ApplicationController
 
     def create
         request = Request.create(request_params(:playlist_id, :song_id, :show_id))
-        render json: request
+        data = ActiveModelSerializers::Adapter::Json.new(
+            RequestSerializer.new(request)
+          ).serializable_hash
+          ActionCable.server.broadcast 'requests_channel', data
+          head :ok
     end
 
     private 
