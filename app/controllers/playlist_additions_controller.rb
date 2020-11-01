@@ -3,7 +3,11 @@ class PlaylistAdditionsController < ApplicationController
     def update
         addition = PlaylistAddition.find_by({song_id: params[:song_id], playlist_id: params[:playlist_id]})
         addition.update({played: true})
-        render json: addition
+        data = ActiveModelSerializers::Adapter::Json.new(
+            PlaylistAdditionSerializer.new(addition)
+          ).serializable_hash
+          ActionCable.server.broadcast 'playlist_additions_channel', data
+          head :ok
     end
 
     def destroy
@@ -11,6 +15,7 @@ class PlaylistAdditionsController < ApplicationController
         addition.destroy
         render json: addition
     end
+
 end
 
   
