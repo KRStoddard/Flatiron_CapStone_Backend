@@ -11,6 +11,8 @@ class PlaylistsController < ApplicationController
     end
 
     def create
+        playlist = Playlist.create(name: params[:name], band_id: logged_in_user.id)
+        render json: playlist
     end
 
     def update

@@ -1,5 +1,5 @@
 class ShowsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show, :update]
 
     def index 
         shows = Show.all.filter{|show| show.complete != true}
@@ -29,7 +29,7 @@ class ShowsController < ApplicationController
 
     def destroy 
         show = Show.find(params[:id])
-        show.playlist_additions.each{|add| add.played === false}
+        show.playlist.playlist_additions.each{|add| add.update({played: false})}
     end
 
     private

@@ -1,8 +1,7 @@
 class ShowSerializer < ActiveModel::Serializer
-  attributes :id, :venue_name, :price_per_request, :date, :playlist_additions, :complete
+  attributes :id, :venue_name, :price_per_request, :date, :playlist_additions, :complete, :requests
 
   belongs_to :band
-  has_many :requests
   belongs_to :playlist
 
   def playlist_additions
@@ -14,5 +13,12 @@ class ShowSerializer < ActiveModel::Serializer
       object.date.to_formatted_s(:long)
     end
   end
+
+  def requests
+    requests = object.requests.uniq{|req| req.song_id}
+    requests.map{|req| RequestSerializer.new(req)}
+
+  end
+
 
 end
