@@ -18,7 +18,10 @@ class PlaylistsController < ApplicationController
     def update
     end
 
-    def delete
+    def destroy
+        playlist = Playlist.find(params[:id])
+        playlist.destroy
+        render json: playlist
     end
 end
 
