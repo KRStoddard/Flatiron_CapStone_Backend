@@ -14,7 +14,11 @@ class ShowsController < ApplicationController
     def create
         show = Show.new(show_params(:venue_name, :price_per_request, :playlist_id))
         show.update({band_id: logged_in_user.id, date: DateTime.now.to_date})
-        render json: show
+        if show.valid? 
+            render json: show
+        else 
+            render json: {errors: show.errors.full_messages}
+        end
     end
 
     def update

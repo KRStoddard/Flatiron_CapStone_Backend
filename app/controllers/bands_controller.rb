@@ -11,7 +11,7 @@ class BandsController < ApplicationController
             token = encode_token({band_id: band.id})
             render json: {band: band, token: token}
         else
-            render json: {error: "Invalid username or password"}
+            render json: {errors: band.errors.full_messages}
         end
     end
 

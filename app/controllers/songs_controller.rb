@@ -4,7 +4,11 @@ class SongsController < ApplicationController
         song = Song.create(song_params(:name, :artist, :album, :release_year))
         addition = PlaylistAddition.new(song_params(:playlist_id))
         addition.update({song_id: song.id})
-        render json: song
+        if song.valid? 
+            render json: song
+        else
+            render json: {errors: song.errors.full_messages}
+        end
     end
 
    

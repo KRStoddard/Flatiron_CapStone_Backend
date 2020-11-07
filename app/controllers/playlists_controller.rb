@@ -12,7 +12,11 @@ class PlaylistsController < ApplicationController
 
     def create
         playlist = Playlist.create(name: params[:name], band_id: logged_in_user.id)
-        render json: playlist
+        if playlist.valid?
+            render json: playlist
+        else 
+            render json: {errors: playlist.errors.full_messages}
+        end
     end
 
     def update
