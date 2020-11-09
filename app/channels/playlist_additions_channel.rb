@@ -1,6 +1,7 @@
 class PlaylistAdditionsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "playlist_additions_channel"
+    show = Show.find(params[:show])
+    stream_for show
   end
 
   def unsubscribed

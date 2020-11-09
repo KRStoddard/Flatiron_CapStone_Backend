@@ -3,10 +3,11 @@ class RequestsController < ApplicationController
 
     def create
         request = Request.create(request_params(:playlist_id, :song_id, :show_id))
+        show = Show.find(request.show_id)
         data = ActiveModelSerializers::Adapter::Json.new(
             RequestSerializer.new(request)
           ).serializable_hash
-          ActionCable.server.broadcast 'requests_channel', data
+          RequestsChannel.broadcast_to show, data
           head :ok
     end
 

@@ -1,6 +1,7 @@
 class RequestsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "requests_channel"
+    show = Show.find(params[:show])
+    stream_for show
   end
 
   def unsubscribed
