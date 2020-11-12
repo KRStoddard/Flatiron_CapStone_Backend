@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
 
     def create
-        song = Song.create(song_params(:name, :artist, :album, :release_year))
+        song = Song.create(song_params(:name, :artist, :album))
         addition = PlaylistAddition.new(song_params(:playlist_id))
         addition.update({song_id: song.id})
         if song.valid? 

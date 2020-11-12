@@ -19,11 +19,9 @@ class PlaylistsController < ApplicationController
         end
     end
 
-    def update
-    end
-
     def destroy
         playlist = Playlist.find(params[:id])
+        playlist.playlist_additions.each{|add| add.destroy}
         playlist.destroy
         render json: playlist
     end
