@@ -2,7 +2,7 @@
 
 ## See It Running Live
 
-[On Heroku] (https://secret-santa-builder-frontend.herokuapp.com/)
+[On Heroku](https://secret-santa-builder-frontend.herokuapp.com/)
 
 ## Description
 
